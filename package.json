@@ -1,6 +1,6 @@
 {
   "name": "mysql-to-bigquery",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,8 @@
   ],
   "files": [
     "lib",
-    "src"
+    "src",
+    "index.js"
   ],
   "author": "Keita Moromizato <keita.moromi@gmail.com>",
   "license": "MIT",
