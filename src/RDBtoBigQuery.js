@@ -13,7 +13,6 @@ export default class MySQLtoBigQuery {
   constructor(config = {}) {
     const mySqlConfig = config.mySqlConfig || {};
     const bigQueryConfig = config.bigQueryConfig || {};
-    console.log(mySqlConfig, bigQueryConfig);
 
     // init MySQL
     this.connection = mysql.createConnection({
