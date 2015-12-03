@@ -41,8 +41,7 @@ export default class MySQL {
       this.connection.query(`SELECT * FROM ${tableName};`).stream()
         .pipe(mapSync(data => this._toTSV(data)))
         .pipe(fileStream);
-
-      fileStream.on('error', reject).on('close', resolve);
+        .on('error', reject).on('close', resolve);
     });
   }
 
