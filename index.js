@@ -5,7 +5,7 @@ module.exports = function(options) {
   this.mySqlConfig = options.mySqlConfig || {};
   this.bigQueryConfig = options.bigQueryConfig || {};
 
-  var toBQ = new RDBtoBigQuery(sqlConfig, bqConfig);
+  var toBQ = new RDBtoBigQuery(this.sqlConfig, this.bqConfig);
 
   this.exec = function(tables, callback) {
     toBQ.exec(tables).then(function(result) {
