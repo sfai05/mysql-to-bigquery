@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/KeitaMoromizato/textlint-rule-ja-yahoo-kousei.git"
   },
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Data Transfer from MySQL to BigQuery",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,6 @@
   ],
   "files": [
     "lib",
-    "src",
     "index.js"
   ],
   "author": "Keita Moromizato <keita.moromi@gmail.com>",
