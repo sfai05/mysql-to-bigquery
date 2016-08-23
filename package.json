@@ -4,13 +4,13 @@
     "type": "git",
     "url": "https://github.com/KeitaMoromizato/textlint-rule-ja-yahoo-kousei.git"
   },
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Data Transfer from MySQL to BigQuery",
   "main": "index.js",
   "scripts": {
-    "build": "babel src --out-dir lib --source-maps",
-    "watch": "babel src --out-dir lib --watch --source-maps",
-    "test": "mocha"
+    "build": "babel src --out-dir lib",
+    "watch": "babel src --out-dir lib --watch",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "bigquery",
@@ -29,7 +29,6 @@
     "power-assert": "^1.2.0"
   },
   "dependencies": {
-    "bluebird": "^3.0.6",
     "event-stream": "^3.3.2",
     "gcloud": "^0.25.1",
     "lodash": "^3.10.1",

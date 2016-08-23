@@ -3,10 +3,9 @@
 import mysql from 'mysql';
 import {bigquery} from 'gcloud'
 
-import Promise from 'bluebird';
 import moment from 'moment';
 import {map as esMap} from 'event-stream';
-import {reduce, trimLeft} from 'lodash';
+import { trimLeft } from 'lodash';
 
 export default class MySQLtoBigQuery {
 
@@ -95,7 +94,7 @@ export default class MySQLtoBigQuery {
   }
 
   _toTSV(data) {
-    return trimLeft(reduce(data, (result, val) => `${result}\t${this._escape(val)}`, '') + '\n');
+    return trimLeft(data.reduce((result, val) => `${result}\t${this._escape(val)}`, '') + '\n');
   }
 
   _escape(val) {
