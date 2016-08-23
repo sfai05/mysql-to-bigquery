@@ -117,7 +117,7 @@ export default class MySQLtoBigQuery {
     if (type === 'tinyint(1)') {
       return 'BOOLEAN'
     }
-    else if (type.indexOf('int') !== -1) {
+    else if (type.match(/^int\([0-9]+\)$/)) {
       return 'INTEGER'
     }
     else if (type === 'datetime') {
