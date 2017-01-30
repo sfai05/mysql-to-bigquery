@@ -2,9 +2,9 @@
   "name": "mysql-to-bigquery",
   "repository": {
     "type": "git",
-    "url": "https://github.com/KeitaMoromizato/textlint-rule-ja-yahoo-kousei.git"
+    "url": "https://github.com/KeitaMoromizato/mysql-to-bigquery.git"
   },
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Data Transfer from MySQL to BigQuery",
   "main": "index.js",
   "scripts": {
