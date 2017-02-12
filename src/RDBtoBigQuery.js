@@ -94,7 +94,8 @@ export default class MySQLtoBigQuery {
   }
 
   _toTSV(data) {
-    return trimLeft(data.reduce((result, val) => `${result}\t${this._escape(val)}`, '') + '\n');
+    var d = Array.isArray(data) ? data : [data];
+    return trimLeft(d.reduce((result, val) => `${result}\t${this._escape(val)}`, '') + '\n');
   }
 
   _escape(val) {
