@@ -4,7 +4,7 @@ import mysql from 'mysql';
 import {bigquery} from 'gcloud'
 
 import moment from 'moment';
-import {map as esMap} from 'event-stream';
+import { map as esMap, readArray} from 'event-stream';
 import { trimLeft } from 'lodash';
 
 export default class MySQLtoBigQuery {
@@ -85,17 +85,19 @@ export default class MySQLtoBigQuery {
         allowQuotedNewlines: true
       };
 
-      this.connection.query(`SELECT * FROM ${tableName};`).stream()
-        .pipe(esMap((data, cb) => cb(null, this._toTSV(data))))
+      this.connection.query(`SELECT * FROM ${tableName};`, (error, results) => {
+        if (error) return reject(error);
+
+        readArray(results.map(data => this._toTSV(data)))
         .pipe(table.createWriteStream(options))
         .on('error', reject)
         .on('complete', resolve);
+      });
     });
   }
 
   _toTSV(data) {
-    var d = Array.isArray(data) ? data : [data];
-    return trimLeft(d.reduce((result, val) => `${result}\t${this._escape(val)}`, '') + '\n');
+    return trimLeft(data.reduce((result, val) => `${result}\t${this._escape(val)}`, '') + '\n');
   }
 
   _escape(val) {
