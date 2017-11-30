@@ -14,20 +14,12 @@ export default class MySQLtoBigQuery {
     const bigQueryConfig = config.bigQueryConfig || {};
 
     // init MySQL
-    this.connection = mysql.createConnection({
-      host: mySqlConfig.host || process.env.RDS_HOST,
-      user: mySqlConfig.user || process.env.RDS_USER,
-      password: mySqlConfig.password || process.env.RDS_PASSWORD,
-      database: mySqlConfig.database || process.env.RDS_DATABASE
-    });
+    this.connection = mysql.createConnection(mySqlConfig);
 
     this.connection.connect();
 
     // init BigQuery
-    this.bq = bigquery({
-      projectId: bigQueryConfig.projectId || process.env.BQ_PROJECT_ID,
-      keyFilename: bigQueryConfig.keyFilename || process.env.BQ_KEY_FILENAME
-    });
+    this.bq = bigquery(bigQueryConfig);
 
     this.dataset = this.bq.dataset(bigQueryConfig.dataset || process.env.BQ_DATASET);
   }
