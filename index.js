@@ -2,7 +2,7 @@ var RDBtoBigQuery = require('./lib/RDBtoBigQuery');
 
 module.exports = function(options) {
 
-  var toBQ = new RDBtoBigQuery(options);
+  var toBQ = new RDBtoBigQuery.default(options);
 
   this.exec = function(tables, callback) {
     toBQ.exec(tables).then(function(result) {

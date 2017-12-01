@@ -25,7 +25,9 @@ export default class MySQLtoBigQuery {
   }
 
   exec(tableNames) {
-    return Promise.all(tableNames.map(t => this._syncTable(t)));
+    return Promise.all(tableNames.map(t => this._syncTable(t))).then(() => {
+      this.connection.end()
+    })
   }
 
   _syncTable(tableName) {
@@ -60,7 +62,6 @@ export default class MySQLtoBigQuery {
 
           this.dataset.createTable(tableName, options, (error) => {
             if (error) return reject(error);
-
             resolve();
           });
         });
@@ -72,24 +73,22 @@ export default class MySQLtoBigQuery {
     return new Promise((resolve, reject) => {
       const table = this.dataset.table(tableName);
 
-      const options = {
-        fieldDelimiter: '\t',
-        allowQuotedNewlines: true
-      };
-
       this.connection.query(`SELECT * FROM ${tableName};`, (error, results) => {
         if (error) return reject(error);
 
-        readArray(results.map(data => this._toTSV(data)))
-        .pipe(table.createWriteStream(options))
-        .on('error', reject)
+        readArray(results.map(data => this._toJSON(data)))
+        .pipe(table.createWriteStream('json'))
+        .on('error', function(error){
+          console.error(error)
+          reject();
+        })
         .on('complete', resolve);
       });
     });
   }
 
-  _toTSV(data) {
-    return trimLeft(data.reduce((result, val) => `${result}\t${this._escape(val)}`, '') + '\n');
+  _toJSON(data) {
+    return JSON.stringify(data) + '\n';
   }
 
   _escape(val) {
